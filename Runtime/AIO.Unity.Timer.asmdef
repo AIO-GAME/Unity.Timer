@@ -1,0 +1,21 @@
+﻿{
+  "name": "AIO.Unity.Timer",
+  "references": [
+    "AIO.Unity.Runner"
+  ],
+  "includePlatforms": [],
+  "excludePlatforms": [],
+  "allowUnsafeCode": true,
+  "overrideReferences": false,
+  "precompiledReferences": [],
+  "autoReferenced": true,
+  "defineConstraints": [],
+  "versionDefines": [
+    {
+      "name": "com.cysharp.unitask",
+      "expression": "",
+      "define": "SUPPORT_UNITASK"
+    }
+  ],
+  "noEngineReferences": false
+}
