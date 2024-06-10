@@ -1,7 +1,7 @@
 {
   "name": "com.aio.timer",
   "displayName": "AIO Unity Timer",
-  "description": "unity3d resources management system.",
+  "description": "unity3d timer system",
   "version": "1.0.0-preview",
   "unity": "2019.4",
   "category": "Runtime",
@@ -11,19 +11,21 @@
   "changelogUrl": "https://github.com/AIO-GAME/Unity.Timer/commits/main",
   "licensesUrl": "https://github.com/AIO-GAME/Unity.Timer/blob/main/LICENSE.md",
   "repository": {
-	"type": "git",
-	"url": "https://github.com/AIO-GAME/Unity.Timer.git"
+    "type": "git",
+    "url": "https://github.com/AIO-GAME/Unity.Timer.git"
   },
-  "relatedPackages": {},
+  "relatedPackages": {
+    "com.aio.runner": "1.0.0-preview"
+  },
   "keywords": [
-	"timing wheel",
-	"unity",
-	"timer",
-	"task"
+    "timing wheel",
+    "unity",
+    "timer",
+    "task"
   ],
+  "type": "library",
   "author": {
-	"name": "AIO GAME",
-	"url": "https://github.com/AIO-GAME/Unity.Timer"
-  },
-  "type": "library"
+    "name": "AIO GAME",
+    "url": "https://github.com/AIO-GAME"
+  }
 }
