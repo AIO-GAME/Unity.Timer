@@ -14,7 +14,9 @@
     "type": "git",
     "url": "https://github.com/AIO-GAME/Unity.Timer.git"
   },
-  "relatedPackages": {},
+  "relatedPackages": {
+    "com.aio.runner": "1.0.0-preview"
+  },
   "keywords": [
     "timing wheel",
     "unity",
