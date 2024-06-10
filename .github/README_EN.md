@@ -84,32 +84,32 @@ openupm add com.aio.timer
 
 ## ⭐ About
 
-- **这是一个 高效时间轮 定时器工具类**
-- ✅ **支持 Unity 2019.4 LTS 或更高版本**
-- ✅ **支持 .NET 4.x 和 .NET Standard 2.0**
-- ✅ **支持 自定义定时次数**
-- ✅ **支持 子线程后台运行或主线程协程运行**
-- ✅ **支持 自定义时间精度单位**
-- ✅ **支持 自定义时间轮大小**
-- ✅ **支持 时间轮动态扩容**
-- ✅ **支持 同时添加1000000+ 定时任务**
+- **This is a high-performance timer tool class based on the efficient time wheel.**
+- **Support Unity 2019.4 LTS or higher.**
+- **Support .NET 4.x and .NET Standard 2.0.**
+- **Support custom timing times.**
+- **Support sub-thread background operation or main thread coroutine operation.**
+- **Support custom time precision unit.**
+- **Support custom time wheel size.**
+- **Support time wheel dynamic expansion.**
+- **Support adding 1000000+ timing tasks at the same time.**
 
 ## 📚 Usage
 
-<h4>添加定时任务</h4>
+<h4>Add timing task</h4>
 
 ```csharp 
 TimerSystem.Push(1, () => { Debug.Log("1s"); });
 TimerSystem.Push(2, () => { Debug.Log("2s"); });
 ``` 
 
-<h4>添加循环定时任务</h4>
+<h4>Remove timing task</h4>
 
 ```csharp
 TimerSystem.PushLoop(tid, 3, () => { Debug.Log("3s"); });
 ``` 
 
-<h4>移除循环定时任务</h4>
+<h4>Remove timing task</h4>
 
 ```csharp
 TimerSystem.Pop(tid);
