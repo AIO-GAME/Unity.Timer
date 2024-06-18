@@ -96,6 +96,33 @@ openupm add com.aio.timer
 
 ## 📚 Usage
 
+<h4>Initialize</h4>
+
+```csharp 
+TimerSystem.Initialize("updateLimit:long=10","capacity:int=8196");
+``` 
+
+<h4>Custom time wheel accuracy</h4>
+
+```csharp 
+TimerSystemSettings.TimingUnitsEvent += Week;
+
+public static void Week(ICollection<(long, long, long)> units)
+{
+    var DistanceUnit = 2; // ms
+    var MS_SECOND = 1000;
+    var MS_MIN = 1000 * 60;
+    var MS_HOUR = MS_MIN * 60;
+    var MS_DAY = MS_HOUR * 24;
+    var MS_WEEK = MS_DAY * 7;
+    units.Add((MS_SECOND, DistanceUnit, MS_SECOND / DistanceUnit));
+    units.Add((MS_MIN, MS_SECOND, 60));
+    units.Add((MS_HOUR, MS_MIN, 60));
+    units.Add((MS_DAY, MS_HOUR, 24));
+    units.Add((MS_WEEK, MS_DAY, 7));
+}
+``` 
+
 <h4>Add timing task</h4>
 
 ```csharp 
