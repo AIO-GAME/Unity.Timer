@@ -37,7 +37,8 @@
       "name": "package.openupm.com",
       "url": "https://package.openupm.com",
       "scopes": [
-        "com.aio.timer"
+        "com.aio.timer",
+        "com.aio.runner"
       ]
     }
   ]
