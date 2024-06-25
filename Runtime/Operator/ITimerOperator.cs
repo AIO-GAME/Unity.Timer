@@ -7,6 +7,9 @@ using System.Collections.Generic;
 
 namespace AIO
 {
+    /// <summary>
+    /// 定时器操作器
+    /// </summary>
     public interface ITimerOperator : IDisposable
     {
         /// <summary>

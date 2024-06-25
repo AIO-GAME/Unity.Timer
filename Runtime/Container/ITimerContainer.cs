@@ -71,6 +71,7 @@ namespace AIO
         /// <summary>
         /// 推送更新
         /// </summary>
+        /// <param name="timer">执行器</param>
         void PushUpdate(ITimerExecutor timer);
 
         /// <summary>

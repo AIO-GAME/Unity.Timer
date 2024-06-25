@@ -4,8 +4,8 @@
     {
         public TimerOperatorAuto() { }
 
-        public TimerOperatorAuto(byte index, long unit, long slotUnit, int maxCount = 2048) : base(index, unit,
-                                                                                                   slotUnit, maxCount) { }
+        public TimerOperatorAuto(byte index, long unit, long slotUnit, int maxCount = 2048)
+            : base(index, unit, slotUnit, maxCount) { }
 
         public override int BottomUpdate(long nowTime)
         {
@@ -65,7 +65,7 @@
 
             if (EvolutionList.Count > 0)
             {
-                AllCount = AllCount - EvolutionList.Count;
+                AllCount -= EvolutionList.Count;
                 TimerSystem.UpdateSlot(Index - 1, EvolutionList);
             }
             else

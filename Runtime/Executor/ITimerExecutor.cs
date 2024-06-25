@@ -15,11 +15,16 @@ namespace AIO
         /// <summary>
         /// 定时器索引
         /// </summary>
+
+        long TID
+        {
+            get;
 #if UNITY_2021_1_OR_NEWER
-        long TID { get; protected set; }
-#else
-        long TID { get; set; }
+            protected
 #endif
+            set;
+        }
+
         /// <summary>
         /// 创建时间 单位毫秒
         /// </summary>
@@ -57,7 +62,14 @@ namespace AIO
         /// <summary>
         /// 操作索引
         /// </summary>
-        byte OperatorIndex { get; set; }
+        byte OperatorIndex 
+        {
+            get;
+#if UNITY_2021_1_OR_NEWER
+            protected
+#endif
+            set;
+        }
 
         /// <summary>
         /// 精度器 记录当前任务实际持续时间

@@ -38,7 +38,7 @@ namespace AIO
 
         #region Add
 
-        private static void AddUpdate(ITimerExecutor timer)
+        private static ITimerExecutor AddUpdate(ITimerExecutor timer)
         {
             for (byte i = 0; i < TimingUnits.Count - 1; i++)
             {
@@ -53,7 +53,7 @@ namespace AIO
             if (TimerSystemSettings.EnableLoopThread && timer.Loop == -1)
             {
                 LoopContainer.PushUpdate(timer);
-                return;
+                return timer;
             }
 
             if (RemainNum >= Capacity)
@@ -72,12 +72,13 @@ namespace AIO
 
             AddLoop(timer);
             RemainNum = RemainNum + 1;
+            return timer;
         }
 
         /// <summary>
         /// 添加定时任务处理器
         /// </summary>
-        internal static void AddLoop(ITimerExecutor timer)
+        private static void AddLoop(ITimerExecutor timer)
         {
             lock (MainList)
             {

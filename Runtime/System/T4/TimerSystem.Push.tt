@@ -1,0 +1,173 @@
+﻿<#@ template language="C#" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ import namespace="System.Linq" #>
+<#
+    var SummaryPush = """
+                      /// <summary>
+                              /// 添加定时任务处理器
+                              /// </summary>
+                              /// <param name="key"> 键值 </param>
+                              /// <param name="duration"> 间隔时间 </param>
+                              /// <param name="delegateValue"> 委托 </param>
+                              /// <param name="loop"> <c>0:循环</c> <c>1:循环次数</c> </param>
+                      """;
+    var SummaryPushOnce = """
+                          /// <summary>
+                                  /// 添加定时任务处理器
+                                  /// </summary>
+                                  /// <remarks> (一次性) </remarks>
+                                  /// <param name="key"> 键值 </param>
+                                  /// <param name="duration"> 间隔时间 </param>
+                                  /// <param name="delegateValue"> 委托 </param>
+                          """;
+    var SummaryPushOnceNoKey = """
+                               /// <summary>
+                                       /// 添加定时任务处理器 
+                                       /// </summary>
+                                       /// <remarks> (一次性)(无键值) </remarks>
+                                       /// <param name="duration"> 间隔时间 </param>
+                                       /// <param name="delegateValue"> 委托 </param>
+                               """;
+    var SummaryPushLoop = """
+                          /// <summary>
+                                  /// 添加定时任务处理器 
+                                  /// </summary>
+                                  /// <remarks> (循环) </remarks>
+                                  /// <param name="key"> 键值 </param>
+                                  /// <param name="duration"> 间隔时间 </param>
+                                  /// <param name="delegateValue"> 委托 </param>
+                          """;
+    var dic = new Dictionary<string, string>();
+    dic["Func<IEnumerator>"] = "TimerExecutorEnumerator";
+    dic["Action"] = "TimerExecutorAction";
+#>
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+namespace AIO
+{
+    partial class TimerSystem
+    {
+        #region Push
+<#
+    foreach (var pair in dic)
+    {
+#>
+
+        #region Push <#=pair.Key#>
+
+        <#=SummaryPush#>
+        public static void Push(int key, long duration, <#=pair.Key#> delegateValue, ushort loop = 1) =>
+            AddUpdate(new <#=pair.Value#>(key, duration, loop == 0 ? -1 : loop, Counter, delegateValue));
+
+        <#=SummaryPush#>
+        public static void Push(long key, long duration, <#=pair.Key#> delegateValue, ushort loop = 1) =>
+            AddUpdate(new <#=pair.Value#>(key, duration, loop == 0 ? -1 : loop, Counter, delegateValue));
+
+        <#=SummaryPush#>
+        public static void Push<E>(E key, long duration, <#=pair.Key#> delegateValue, ushort loop = 1)
+        where E : Enum => AddUpdate(new <#=pair.Value#>(key.GetHashCode(), duration, loop == 0 ? -1 : loop, Counter, delegateValue));
+
+        <#=SummaryPush#>
+        public static void Push(Guid key, long duration, <#=pair.Key#> delegateValue, ushort loop = 1) =>
+            AddUpdate(new <#=pair.Value#>(key.GetHashCode(), duration, loop == 0 ? -1 : loop, Counter, delegateValue));
+
+        <#=SummaryPush#>
+        public static void Push(string key, long duration, <#=pair.Key#> delegateValue, ushort loop = 1)
+        {
+            if (string.IsNullOrEmpty(key)) return;
+            AddUpdate(new <#=pair.Value#>(key.GetHashCode(), duration, loop == 0 ? -1 : loop, Counter, delegateValue));
+        }
+
+        #endregion
+<#
+    }
+#>
+
+        #endregion
+
+        #region PushOnce
+<#
+    foreach (var pair in dic)
+    {
+#>
+
+        #region PushOnce <#=pair.Key#>
+
+        <#=SummaryPushOnce#>
+        public static void PushOnce(int key, long duration, <#=pair.Key#> delegateValue) =>
+            AddUpdate(new <#=pair.Value#>(key, duration, 1, Counter, delegateValue));
+
+        <#=SummaryPushOnce#>
+        public static void PushOnce(long key, long duration, <#=pair.Key#> delegateValue) =>
+            AddUpdate(new <#=pair.Value#>(key, duration, 1, Counter, delegateValue));
+
+        <#=SummaryPushOnce#>
+        public static void PushOnce<E>(E key, long duration, <#=pair.Key#> delegateValue)
+        where E : Enum => AddUpdate(new <#=pair.Value#>(key.GetHashCode(), duration, 1, Counter, delegateValue));
+
+        <#=SummaryPushOnce#>
+        public static void PushOnce(Guid key, long duration, <#=pair.Key#> delegateValue) =>
+            AddUpdate(new <#=pair.Value#>(key.GetHashCode(), duration, 1, Counter, delegateValue));
+
+        <#=SummaryPushOnce#>
+        public static void PushOnce(string key, long duration, <#=pair.Key#> delegateValue)
+        {
+            if (string.IsNullOrEmpty(key)) return;
+            AddUpdate(new <#=pair.Value#>(key.GetHashCode(), duration, 1, Counter, delegateValue));
+        }
+
+        <#=SummaryPushOnceNoKey#>
+        public static void PushOnce(long duration, <#=pair.Key#> delegateValue) =>
+            AddUpdate(new <#=pair.Value#>(duration, 1, Counter, delegateValue));
+
+        #endregion
+<#
+    }
+#>
+
+        #endregion
+
+        #region PushLoop
+<#
+    foreach (var pair in dic)
+    {
+#>
+
+        #region PushLoop <#=pair.Key#>
+
+        <#=SummaryPushLoop#>
+        public static void PushLoop(int key, long duration, <#=pair.Key#> delegateValue) =>
+            AddUpdate(new <#=pair.Value#>(key, duration, -1, Counter, delegateValue));
+
+        <#=SummaryPushLoop#>
+        public static void PushLoop(long key, long duration, <#=pair.Key#> delegateValue) =>
+            AddUpdate(new <#=pair.Value#>(key, duration, -1, Counter, delegateValue));
+
+        <#=SummaryPushLoop#>
+        public static void PushLoop<E>(E key, long duration, <#=pair.Key#> delegateValue)
+        where E : Enum => AddUpdate(new <#=pair.Value#>(key.GetHashCode(), duration, -1, Counter, delegateValue));
+
+        <#=SummaryPushLoop#>
+        public static void PushLoop(Guid key, long duration, <#=pair.Key#> delegateValue) =>
+            AddUpdate(new <#=pair.Value#>(key.GetHashCode(), duration, -1, Counter, delegateValue));
+
+        <#=SummaryPushLoop#>
+        public static void PushLoop(string key, long duration, <#=pair.Key#> delegateValue)
+        {
+            if (string.IsNullOrEmpty(key)) return;
+            AddUpdate(new <#=pair.Value#>(key.GetHashCode(), duration, -1, Counter, delegateValue));
+        }
+
+        #endregion
+<#
+    }
+#>
+
+        #endregion
+
+    }
+}

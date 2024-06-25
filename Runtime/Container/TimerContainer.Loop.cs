@@ -17,15 +17,9 @@ namespace AIO
         {
             Unit = unit;
 
-            for (byte i = 0; i < TimerSystem.TimingUnits.Count; i++)
-                List.Add(new TimerOperatorLoop(
-                             i,
-                             TimerSystem.TimingUnits[i].Item2,
-                             TimerSystem.TimingUnits[i].Item3,
-                             DoneCallBack,
-                             PushUpdate,
-                             EvolutionCallBack
-                         ));
+            var tuples = TimerSystem.TimingUnits;
+            for (byte i = 0; i < tuples.Count; i++)
+                List.Add(new TimerOperatorLoop(i, tuples[i].Item2, tuples[i].Item3, DoneCallBack, PushUpdate, EvolutionCallBack));
         }
 
         protected override void Update()
@@ -101,7 +95,7 @@ namespace AIO
 
 #if UNITY_EDITOR
                 Debug.Log(
-                    $"[循环定时器:{ID}] [容器数量:{List.Count}] [状态:结束] 精度单位:{Unit} 当前时间:{Counter} 剩余任务数量:{RemainNum}");
+                          $"[循环定时器:{ID}] [容器数量:{List.Count}] [状态:结束] 精度单位:{Unit} 当前时间:{Counter} 剩余任务数量:{RemainNum}");
 #endif
             }
 #if UNITY_EDITOR
@@ -112,7 +106,7 @@ namespace AIO
             {
 #if UNITY_EDITOR
                 Debug.LogErrorFormat(
-                    $"[循环定时器:{ID}] [容器数量:{List.Count}] [状态:异常] 精度单位:{Unit} 当前时间:{Counter} 剩余任务数量:{RemainNum} 异常信息:{e}");
+                                     $"[循环定时器:{ID}] [容器数量:{List.Count}] [状态:异常] 精度单位:{Unit} 当前时间:{Counter} 剩余任务数量:{RemainNum} 异常信息:{e}");
 #endif
             }
             finally
@@ -130,9 +124,6 @@ namespace AIO
             });
         }
 
-        private void EvolutionCallBack(int Index, List<ITimerExecutor> list)
-        {
-            List[Index].AddTimerSource(list);
-        }
+        private void EvolutionCallBack(int Index, List<ITimerExecutor> list) { List[Index].AddTimerSource(list); }
     }
 }

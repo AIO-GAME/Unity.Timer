@@ -12,15 +12,26 @@ namespace AIO
     /// </summary>
     internal class TimerOperatorConsume : TimerOperator
     {
-        private Action<List<ITimerExecutor>>      DoneEvent;
-        private Action<int, List<ITimerExecutor>> EvolutionEvent;
-        private Action<List<ITimerExecutor>>      LoopEvent;
+        /// <summary>
+        /// 完成事件
+        /// </summary>
+        private readonly Action<List<ITimerExecutor>> EventDone;
+
+        /// <summary>
+        /// 循环事件
+        /// </summary>
+        private readonly Action<List<ITimerExecutor>> EventLoop;
+
+        /// <summary>
+        /// 进化事件
+        /// </summary>
+        private readonly Action<int, List<ITimerExecutor>> EventEvolution;
 
         public TimerOperatorConsume(
             ITimerOperator                    timerOperator,
-            Action<List<ITimerExecutor>>      doneEvent,
-            Action<List<ITimerExecutor>>      loopEvent,
-            Action<int, List<ITimerExecutor>> evolutionEvent)
+            Action<List<ITimerExecutor>>      eventDone,
+            Action<List<ITimerExecutor>>      eventLoop,
+            Action<int, List<ITimerExecutor>> eventEvolution)
         {
             Index    = timerOperator.Index;
             Slot     = timerOperator.Slot;
@@ -32,9 +43,9 @@ namespace AIO
             TimersCache = timerOperator.TimersCache;
             Timers      = timerOperator.Timers;
 
-            DoneEvent      = doneEvent;
-            LoopEvent      = loopEvent;
-            EvolutionEvent = evolutionEvent;
+            EventDone      = eventDone;
+            EventLoop      = eventLoop;
+            EventEvolution = eventEvolution;
         }
 
         public override int BottomUpdate(long nowTime)
@@ -63,10 +74,10 @@ namespace AIO
             }
 
             AllCount -= finishNumber;
-            if (LoopList.Count > 0) LoopEvent.Invoke(LoopList);
+            if (LoopList.Count > 0) EventLoop.Invoke(LoopList);
             else LoopList.Free();
 
-            if (DoneList.Count > 0) DoneEvent.Invoke(DoneList);
+            if (DoneList.Count > 0) EventDone.Invoke(DoneList);
             else DoneList.Free();
 
             return finishNumber;
@@ -95,7 +106,7 @@ namespace AIO
             if (EvolutionList.Count > 0)
             {
                 AllCount -= EvolutionList.Count;
-                EvolutionEvent.Invoke(Index - 1, EvolutionList);
+                EventEvolution?.Invoke(Index - 1, EvolutionList);
             }
             else
             {
