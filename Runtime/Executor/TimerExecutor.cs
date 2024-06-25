@@ -57,9 +57,9 @@ namespace AIO
 
         protected long TID { get; set; }
 
-        internal int Loop { get; set; }
+        private int Loop { get; set; }
 
-        internal byte OperatorIndex { get; set; }
+        private byte OperatorIndex { get; set; }
 
         /// <summary>
         /// 获取当前时间

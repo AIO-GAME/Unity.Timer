@@ -37,8 +37,8 @@
       "name": "package.openupm.com",
       "url": "https://package.openupm.com",
       "scopes": [
-        "com.aio.timer",
-        "com.aio.runner"
+        "com.aio.runner",
+        "com.aio.timer"
       ]
     }
   ]
@@ -94,6 +94,7 @@ openupm add com.aio.timer
 - **Support custom time wheel size.**
 - **Support time wheel dynamic expansion.**
 - **Support adding 1000000+ timing tasks at the same time.**
+- **Support int` `string` `enum` `Guid` as loop task KEY**
 
 ## 📚 Usage
 
@@ -127,14 +128,14 @@ public static void Week(ICollection<(long, long, long)> units)
 <h4>Add timing task</h4>
 
 ```csharp 
-TimerSystem.Push(1, () => { Debug.Log("1s"); });
-TimerSystem.Push(2, () => { Debug.Log("2s"); });
-``` 
-
-<h4>Remove timing task</h4>
-
-```csharp
-TimerSystem.PushLoop(tid, 3, () => { Debug.Log("3s"); });
+// Sub-thread
+TimerSystem.Push("KEY", 1, () => { Debug.Log("1ms"); });            // Custom times default is 1
+TimerSystem.PushOnce("KEY", 2, () => { Debug.Log("2ms"); });        // Once
+TimerSystem.PushLoop("KEY", 1000, () => { Debug.Log("2s"); });      // Loop
+// Main-thread
+TimerSystem.PushMain("KEY", 1, () => { Debug.Log("1ms"); }, 1);     // Custom times default is 1
+TimerSystem.PushOnceMain("KEY", 2, () => { Debug.Log("2ms"); });    // Once
+TimerSystem.PushLoopMain("KEY", 1000, () => { Debug.Log("2s"); });  // Loop
 ``` 
 
 <h4>Remove timing task</h4>

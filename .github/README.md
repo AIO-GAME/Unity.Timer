@@ -37,8 +37,8 @@
       "name": "package.openupm.com",
       "url": "https://package.openupm.com",
       "scopes": [
-        "com.aio.timer",
-        "com.aio.runner"
+        "com.aio.runner",
+        "com.aio.timer"
       ]
     }
   ]
@@ -94,6 +94,7 @@ openupm add com.aio.timer
 - ✅ **支持 自定义时间轮大小**
 - ✅ **支持 时间轮动态扩容**
 - ✅ **支持 同时添加1000000+ 定时任务**
+- ✅ **支持 `int` `string` `enum` `Guid` 作为 循环任务KEY**
 
 ## 📚 使用
 
@@ -127,15 +128,14 @@ public static void Week(ICollection<(long, long, long)> units)
 <h4>添加定时任务</h4>
 
 ```csharp 
-TimerSystem.Push(1, () => { Debug.Log("1ms"); });
-TimerSystem.Push(2, () => { Debug.Log("2ms"); });
-TimerSystem.Push(1000, () => { Debug.Log("2s"); });
-``` 
-
-<h4>添加循环定时任务</h4>
-
-```csharp
-TimerSystem.PushLoop(tid, 3, () => { Debug.Log("3ms"); });
+// 后台线程
+TimerSystem.Push("KEY", 1, () => { Debug.Log("1ms"); });            // 自定义次数 默认为1
+TimerSystem.PushOnce("KEY", 2, () => { Debug.Log("2ms"); });        // 一次
+TimerSystem.PushLoop("KEY", 1000, () => { Debug.Log("2s"); });      // 循环
+// 主线程
+TimerSystem.PushMain("KEY", 1, () => { Debug.Log("1ms"); }, 1);     // 自定义次数 默认为1
+TimerSystem.PushOnceMain("KEY", 2, () => { Debug.Log("2ms"); });    // 一次
+TimerSystem.PushLoopMain("KEY", 1000, () => { Debug.Log("2s"); });  // 循环
 ``` 
 
 <h4>移除循环定时任务</h4>
