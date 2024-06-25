@@ -65,9 +65,6 @@ namespace AIO
         byte OperatorIndex 
         {
             get;
-#if UNITY_2021_1_OR_NEWER
-            protected
-#endif
             set;
         }
 
