@@ -2,7 +2,7 @@
   "name": "com.aio.timer",
   "displayName": "AIO Unity Timer",
   "description": "unity3d timer system",
-  "version": "1.0.1-preview",
+  "version": "1.0.2-preview",
   "unity": "2019.4",
   "category": "Runtime",
   "unityRelease": "0f1",
