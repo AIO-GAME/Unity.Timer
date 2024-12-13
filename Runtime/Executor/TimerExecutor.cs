@@ -118,18 +118,6 @@ namespace AIO
                 return true;
             }
 
-            if (Loop == 1 || Loop == 0)
-            {
-                Number      = Number + 1; //次数增加
-                CurrentTime = Watch.ElapsedMilliseconds;
-                Interval    = CurrentTime - Number * Duration;
-                Watch.Stop();
-                Watch = null;
-                if (TID != 0 && TimerSystem.TimerExecutors.ContainsKey(TID))
-                    TimerSystem.TimerExecutors.Remove(TID);
-                return false; //达到次数
-            }
-
             if (Loop == -1) //无限循环
             {
                 Number      = Number + 1; //次数增加
@@ -140,13 +128,16 @@ namespace AIO
                 return true;
             }
 
-            if (Loop == -2) //不执行回调结束
+            if (Loop == 1 || Loop == 0)
             {
-                Watch.Stop();
-                Watch = null;
-                return false;
+                Number      = Number + 1; //次数增加
+                CurrentTime = Watch.ElapsedMilliseconds;
+                Interval    = CurrentTime - Number * Duration;
             }
 
+            Watch.Stop();
+            Watch = null;
+            if (TID != 0 && TimerSystem.Exist(TID)) TimerSystem.Pop(TID);
             return false;
         }
 
@@ -157,10 +148,7 @@ namespace AIO
             return 0;
         }
 
-        public void Dispose()
-        {
-            Delegates = null;
-        }
+        public void Dispose() { Delegates = null; }
 
         public sealed override string ToString()
         {

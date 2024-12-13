@@ -15,9 +15,8 @@ namespace AIO
         /// <param name="key"> 任务ID </param>
         public static void Pop(long key)
         {
-            if (!TimerExecutors.TryGetValue(key, out var executor)) return;
+            if (!TimerExecutors.Remove(key, out var executor)) return;
             executor.Loop = -2;
-            TimerExecutors.Remove(key);
         }
 
         /// <summary>
@@ -34,6 +33,7 @@ namespace AIO
         /// 取出循环任务
         /// </summary>
         /// <param name="key"> 任务ID </param>
-        public static void Pop<E>(E key) where E : Enum { Pop(key.GetHashCode()); }
+        public static void Pop<E>(E key)
+        where E : Enum => Pop(key.GetHashCode());
     }
 }
