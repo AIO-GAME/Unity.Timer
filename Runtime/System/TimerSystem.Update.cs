@@ -18,12 +18,12 @@ namespace AIO
         /// </summary>
         static partial void Update()
         {
+#if UNITY_EDITOR
+            Debug.Log("<color=#3498db><b>定时器线程启动</b></color>");
+#endif
             TaskHandleToken.ThrowIfCancellationRequested();
             try
             {
-#if UNITY_EDITOR
-                Debug.Log("定时器线程启动");
-#endif
                 while (SWITCH)
                 {
                     var updateCacheTime = Watch.ElapsedMilliseconds;

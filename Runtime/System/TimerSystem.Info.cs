@@ -102,24 +102,34 @@ namespace AIO
         public new static void ToString()
         {
             var builder = new StringBuilder();
-            builder.Append("-----------<主定时器 层器>-----------").AppendLine();
             lock (MainList)
             {
-                foreach (var item in MainList) builder.Append(item).AppendLine().AppendLine();
+                if (MainList.Count > 0)
+                {
+                    builder.Append("-----------<<color=#3498db><b>主定时器 层器</b></color>>-----------").AppendLine();
+                    foreach (var item in MainList) builder.Append(item).AppendLine().AppendLine();
+                }
             }
 
-            builder.Append("-----------<无限循环 层级>-----------").AppendLine();
             lock (LoopContainer)
             {
-                builder.Append(LoopContainer).AppendLine();
+                if (LoopContainer.Count > 0)
+                {
+                    builder.Append("-----------<<color=#3498db><b>无限循环 层级</b></color>>-----------").AppendLine();
+                    builder.Append(LoopContainer).AppendLine();
+                }
             }
 
-            builder.Append("-----------<辅助执行 层级>-----------").AppendLine();
             lock (TaskList)
             {
-                foreach (var item in TaskList) builder.Append(item).AppendLine();
+                if (TaskList.Count > 0)
+                {
+                    builder.Append("-----------<<color=#3498db><b>辅助执行 层级</b></color>>-----------").AppendLine();
+                    foreach (var item in TaskList) builder.Append(item).AppendLine();
+                }
             }
 
+            if (builder.Length == 0) builder.Append("-----------<<color=#3498db><b>当前没有定时器任务</b></color>>-----------");
             Debug.Log(builder.ToString());
         }
     }

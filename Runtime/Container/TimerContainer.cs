@@ -51,6 +51,9 @@ namespace AIO
         ///  <inheritdoc />
         public List<ITimerOperator> List { get; }
 
+        /// <inheritdoc />
+        public int Count => List?.Count ?? 0;
+
         ///  <inheritdoc />
         public long Unit { get; protected set; }
 

@@ -34,6 +34,11 @@ namespace AIO
         List<ITimerOperator> List { get; }
 
         /// <summary>
+        /// 数量
+        /// </summary>
+        int Count { get; }
+
+        /// <summary>
         /// 精度单位
         /// </summary>
         long Unit { get; }
