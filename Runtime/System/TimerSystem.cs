@@ -3,6 +3,7 @@
 using System;
 using System.Diagnostics;
 using UnityEngine;
+using UnityEngine.Scripting;
 using Debug = UnityEngine.Debug;
 
 #if !UNITY_WEBGL
@@ -17,6 +18,7 @@ namespace AIO
     /// <summary>
     /// 定时器 时间调度器
     /// </summary>
+    [Preserve]
     public static partial class TimerSystem
     {
         private static bool IsInitialize;
@@ -35,7 +37,7 @@ namespace AIO
 
             TaskList       = Pool.List<ITimerContainer>();
             MainList       = Pool.List<ITimerOperator>();
-            TimingUnits    = Pool.List<(long, long, long)>();
+            TimingUnits    = Pool.List<UnitItem>();
             TimerExecutors = Pool.Dictionary<long, ITimerExecutor>();
 
             Unit = TimerSystemSettings.DistanceUnit;
@@ -72,7 +74,7 @@ namespace AIO
         private static void RegisterList()
         {
             MainList.Clear();
-            for (byte i = 0; i < TimingUnits.Count; i++) MainList.Add(new TimerOperatorAuto(i, TimingUnits[i].Item2, TimingUnits[i].Item3));
+            for (byte i = 0; i < TimingUnits.Count; i++) MainList.Add(new TimerOperatorAuto(i, TimingUnits[i].Unit, TimingUnits[i].Slot));
         }
 
         /// <summary>

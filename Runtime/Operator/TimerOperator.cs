@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using UnityEngine;
+using UnityEngine.Scripting;
 
 #endregion
 
@@ -12,6 +13,7 @@ namespace AIO
     /// <summary>
     /// 消耗型定时器
     /// </summary>
+    [Preserve]
     public abstract class TimerOperator : ITimerOperator
     {
         protected TimerOperator()
@@ -189,12 +191,12 @@ namespace AIO
         where T : TimerOperator, new()
         {
             var List = Pool.List<T>();
-            foreach (var (allSlot, Uint, Slot) in TimerSystem.TimingUnits)
+            foreach (var item in TimerSystem.TimingUnits)
             {
                 var operators = Activator.CreateInstance<T>();
                 operators.Index    = List.Count;
-                operators.Unit     = Uint * Slot;
-                operators.SlotUnit = Slot;
+                operators.Unit     = item.Unit * item.Slot;
+                operators.SlotUnit = item.Slot;
                 operators.MaxCount = 2048;
                 operators.Slot     = 0;
                 List.Add(operators);

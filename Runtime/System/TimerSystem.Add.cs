@@ -44,7 +44,7 @@ namespace AIO
             {
                 //说明 当前 时间分级器单位 与 当前定时任务处理器 匹配
                 //当I等于最后一个分级层数时
-                if (timer.Duration > TimingUnits[i].Item1 && i != TimingUnits.Count - 1) continue;
+                if (timer.Duration > TimingUnits[i].Total && i != TimingUnits.Count - 1) continue;
                 if (i == 0) timer.OperatorIndex = 0;
                 else timer.OperatorIndex        = (byte)(i - 1);
                 break;

@@ -77,7 +77,7 @@ namespace AIO
         [ContextStatic]
         private static CancellationTokenSource TaskHandleTokenSource;
 
-        internal static List<(long, long, long)> TimingUnits { get; private set; }
+        internal static List<UnitItem> TimingUnits { get; private set; }
 
         internal static Dictionary<long, ITimerExecutor> TimerExecutors { get; private set; }
 

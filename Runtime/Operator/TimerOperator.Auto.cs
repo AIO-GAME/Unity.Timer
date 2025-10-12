@@ -1,5 +1,8 @@
-﻿namespace AIO
+﻿using UnityEngine.Scripting;
+
+namespace AIO
 {
+    [Preserve]
     public class TimerOperatorAuto : TimerOperator
     {
         public TimerOperatorAuto() { }

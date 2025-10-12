@@ -19,7 +19,7 @@ namespace AIO
 
             var tuples = TimerSystem.TimingUnits;
             for (byte i = 0; i < tuples.Count; i++)
-                List.Add(new TimerOperatorLoop(i, tuples[i].Item2, tuples[i].Item3, DoneCallBack, PushUpdate, EvolutionCallBack));
+                List.Add(new TimerOperatorLoop(i, tuples[i].Unit, tuples[i].Slot, DoneCallBack, PushUpdate, EvolutionCallBack));
         }
 
         protected override void Update()
